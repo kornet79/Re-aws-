@@ -1,0 +1,54 @@
+---노션---
+https://incredible-guan-388.notion.site/1-IAM-12626f5391b1804a96d5c3b13cdb268a?pvs=73
+
+# 1강 : IAM 이란?
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a156cc82-d201-4160-ac40-16f8ab23f7dc/b25c5fd1-64fc-4b04-997d-fa86eace9104/image.png)
+
+**IAM 이란 모든 aws 계정을 관리하며 부가의 계정을 만들어 *권한*을 부여할수 있는 서비스이다 보안과 팀프로젝트를 진행하면서 가장많이 사용되기도 하며 주의해야할점이 많은 서비스라고 할수있다.**
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a156cc82-d201-4160-ac40-16f8ab23f7dc/0787f541-5ae4-4792-b718-c12fa421f36c/image.png)
+
+ **예를들어 ) 회계팀은 S3에 있는 장부만 볼수 있게 한다거나 개발팀은 특정 서버에 접속하여 업로드 할수 있게금 해준다던지 등등을 제어 할수있다.**
+
+## **IAM 자격 증명 보고서**
+
+**계정의 모든 사용자와 암호, 엑세스 키, MFA 장치등의 증명상태를 나열하는 보고서를 생성하고 다운로드 가능**
+
+**4시간에 한번 식 생성 가능**
+
+**AWS콘솔, CLI, API 에서 생성 요칭 및 다운로드 가능**
+
+**포함되는 정보**
+
+**암호**
+
+**엑세스키 등등**
+
+# **모법 사용**
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a156cc82-d201-4160-ac40-16f8ab23f7dc/8d455d3a-a3b2-4eda-8406-917350b2d7aa/image.png)
+
+**최소황의 권한만을 허용시키고 권한을 부여한다.**
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a156cc82-d201-4160-ac40-16f8ab23f7dc/28c4641b-3509-49c9-8470-fbfc192fd2aa/image.png)
+
+**루트 사용자 사용하지말기**
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a156cc82-d201-4160-ac40-16f8ab23f7dc/274bfb15-e434-4af6-a89a-8e5779c0e4a3/image.png)
+
+**가능하면 그룹과 정책을 사용하기**
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a156cc82-d201-4160-ac40-16f8ab23f7dc/9574c9d5-2e2d-4580-a848-0c1ff42f0871/image.png)
+
+**MFA 무조건!!**
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a156cc82-d201-4160-ac40-16f8ab23f7dc/1768e736-afbd-4ac6-a85a-466e1f35c0d3/image.png)
+
+**엑세스키 대신 역할을 활용**
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a156cc82-d201-4160-ac40-16f8ab23f7dc/1d148a46-ffdc-4ab9-99a1-b1a98ef6a4c5/image.png)
+
+**IAM 자격증명 보고 활용하기 (계정확인하기)**
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a156cc82-d201-4160-ac40-16f8ab23f7dc/1f5273f3-c0ae-470e-b85d-2ad2a6a5170b/image.png)
