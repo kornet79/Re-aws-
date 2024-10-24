@@ -1,0 +1,155 @@
+---노션---
+https://incredible-guan-388.notion.site/3-EC2-12626f5391b180b3be9fd6b6e98eb432?pvs=73
+
+# EC2 (Amazon Elastic Compute Cloud)
+
+EC2 : 컴퓨팅을 빌려 쓰는 서비스 (중요!)
+
+서버를 구축할 때 사용되는 
+
+게임서버, 웹서버, 어플리케이션 서버
+
+어플리케이션을 사용하거나 호스팅 할때
+
+DB
+
+머신러닝
+
+비트코인 채굴?
+
+연구용 프로그램
+
+1. 초 단위로 온디맨드 가격 모델
+    1. 온디맨드 모델에서는 가격이 초 단위로 결정
+    2. 서비스 요금을 미리 약정하거나 선입금이 필요없음.
+2. 빠른 구축 속도와 확장성
+    1. 몇 분이면 전 세계에 인스턴스 수백여대를 구축 가능
+    2. 다양한 과금 모델 사용가능
+3. 다양한 구성방법 지원
+    1. 머신러닝, 웹서버, 게임서버, 이미지 처리 등 다양한 용도에 최적화된 서버 구성 기능
+    2. 다양한 과금 모델 사용 가능
+4. 여러 AWS 서비스와 연동
+    1. 오토스케일링, Elastic Load Balancer(ELB), Cloud Watch
+    
+    (오토스케일링) = EC2 숫자를 늘렸다 내렸다
+    
+    (ELB) = EC2 트래픽을 분산
+    
+    (Cloud Watch) = 모니터링
+    
+
+---
+
+### 실습 Let’ Go!
+
+잠깐!!!
+
+오늘 사용할 식재…아니 서비스들을 봅시다!
+
+우리는 서비스들이란 식재료들을 사용하여 아키택쳐라는 요리를 만들어 봅시다!
+
+인스턴스
+
+클라우드에서 사용하는 가상 서버로 CPU, 메모리, 그래픽카드 등 연산을 위한 하드웨어를 담당
+
+EBS
+
+Elastic Block Storage의 줄임말로 클라우드에서 사용하는 가상 하드디스크
+
+AMI
+
+EC2 인스턴스를 실행하기 위한 정보를 담고 있는 이미지
+
+(docker 이미지를 비슷한가?)
+
+보안그룹
+
+가상의 방화벽
+
+---
+
+### 목표 : EC2 한대를 프로비전하여 휍 서버 구성하기
+
+### 순서 :
+
+1. EC2를 구성하기 위한 AMI 선택
+2. EC2의 융형과 사이즈 선택
+3. 3. EBS 설정
+4. 보안그룹 설정
+5. EC 생성
+6. EC2 접속후 웹서버 설치 및 웹 서버 실핼
+7. 웹브라우저에서 접속 테스트
+
+---
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a156cc82-d201-4160-ac40-16f8ab23f7dc/c95bad99-d34f-46a0-81c8-1a3c647c1623/image.png)
+
+콘솔 로그인
+
+# EC2 코드
+
+```jsx
+aws ec2 create-security-group --group-name "launch-wizard-1" --description "launch-wizard-1 created 2024-10-21T13:42:51.050Z" --vpc-id "vpc-07cbe793169ea3e04" 
+AuthorizeSecurityGroupIngress
+
+aws ec2 authorize-security-group-ingress --group-id "sg-preview-1" --ip-permissions '{"IpProtocol":"tcp","FromPort":22,"ToPort":22,"IpRanges":[{"CidrIp":"220.94.168.168/32"}]}' 
+RunInstances
+
+aws ec2 run-instances --image-id "ami-02c329a4b4aba6a48" --instance-type "t2.micro" --key-name "Hyunwook_key" --network-interfaces '{"AssociatePublicIpAddress":true,"DeviceIndex":0,"Groups":["sg-preview-1"]}' --credit-specification '{"CpuCredits":"standard"}' --metadata-options '{"HttpEndpoint":"enabled","HttpPutResponseHopLimit":2,"HttpTokens":"required"}' --private-dns-name-options '{"HostnameType":"ip-name","EnableResourceNameDnsARecord":true,"EnableResourceNameDnsAAAARecord":false}' --count "1" 
+```
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a156cc82-d201-4160-ac40-16f8ab23f7dc/efe7cd71-4253-41a0-9ada-c77c95c5b7ae/image.png)
+
+인스턴스 생성!
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a156cc82-d201-4160-ac40-16f8ab23f7dc/92e8512b-3fc7-4861-8400-21f8c484a129/image.png)
+
+키페어 보안그룹 선택
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a156cc82-d201-4160-ac40-16f8ab23f7dc/8827ba74-d4b3-4459-b4ec-c4dd1b278293/image.png)
+
+요약내용 보고 시작
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a156cc82-d201-4160-ac40-16f8ab23f7dc/048a1f5b-b435-49f4-9ef7-70cd9f8bc49a/image.png)
+
+다음 연결!
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a156cc82-d201-4160-ac40-16f8ab23f7dc/869e8af6-dbbf-4144-9f72-2aca8e3a369a/image.png)
+
+고로면 접속이 됄꺼임 ㅇㅇ
+
+접속하자마자 애햐아는거
+
+```jsx
+sudo yum update
+
+sudo -s
+
+yum install httpd -y
+```
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a156cc82-d201-4160-ac40-16f8ab23f7dc/5d08852b-fcac-40f5-b5b9-dd279cb6df34/image.png)
+
+고러면 요로코롬 서버가 실행될꺼임
+
+```jsx
+service httpd start
+```
+
+이거 박고 웹서버 실행!
+
+코드 삽입 방법
+
+```jsx
+nanoi /var/www/html/index.html
+```
+
+여기서 잠깐!!!!!
+
+만약 여기서 그냥 나간다면 평생을 후회하고 만다.
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a156cc82-d201-4160-ac40-16f8ab23f7dc/7e159f8a-dab7-4c11-9c9e-c17f01e8da70/image.png)
+
+물론 인스턴스를 종료하고 가시길 바랍니다?
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a156cc82-d201-4160-ac40-16f8ab23f7dc/1f5273f3-c0ae-470e-b85d-2ad2a6a5170b/image.png)
